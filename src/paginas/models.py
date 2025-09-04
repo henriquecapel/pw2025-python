@@ -18,16 +18,7 @@ class Fotografo(models.Model):
     def __str__(self):
         return self.nome
 
-class Estudio(models.Model):
-    nome = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=200)
-    telefone = models.CharField(max_length=20)
-    cadastrado_por = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nome
-
-class SessaoFoto(models.Model):
+class Sessao(models.Model):
     data = models.DateField()
     horario = models.TimeField()
     tipo = models.CharField(max_length=50)
@@ -36,7 +27,6 @@ class SessaoFoto(models.Model):
     finalizado = models.BooleanField(default=False)
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     fotografo = models.ForeignKey(Fotografo, on_delete=models.PROTECT)
-    estudio = models.ForeignKey(Estudio, on_delete=models.PROTECT)
     cadastrado_por = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

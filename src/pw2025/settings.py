@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "paginas.apps.PaginasConfig",
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -124,7 +129,7 @@ STATICFILES_DIRS = [ BASE_DIR/ "static" ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "inicio"
-LOGOUT_REDIRECT_URL = "login"
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
 
