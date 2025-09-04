@@ -1,0 +1,41 @@
+{% extends "paginas/bootstrap.html" %}
+{% block titulo %}Sessões{% endblock %}
+{% block conteudo %}
+<h2>Sessões de Foto</h2>
+<p><a href="{% url 'cadastrar-sessao' %}">Nova sessão</a></p>
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Tipo</th>
+            <th>Cliente</th>
+            <th>Fotógrafo</th>
+            <th>Estúdio</th>
+            <th>Finalizado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in objetos %}
+        <tr>
+            <td>{{ obj.data }}</td>
+            <td>{{ obj.horario }}</td>
+            <td>{{ obj.tipo }}</td>
+            <td>{{ obj.cliente }}</td>
+            <td>{{ obj.fotografo }}</td>
+            <td>{{ obj.estudio }}</td>
+            <td>{{ obj.finalizado|yesno:"Sim,Não" }}</td>
+            <td>
+                <a href="{% url 'editar-sessao' obj.pk %}">Editar</a> |
+                <a href="{% url 'excluir-sessao' obj.pk %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Nenhum registro</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

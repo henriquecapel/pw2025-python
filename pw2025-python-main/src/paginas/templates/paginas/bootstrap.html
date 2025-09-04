@@ -1,0 +1,61 @@
+{% load static auth_extras %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    {% block titulo %}<title>Página Inicial</title>{% endblock titulo %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+
+<body>
+
+    <ul id="menu">
+        <li><a href="{% url 'inicio' %}">Início</a></li>
+
+        {% if user.is_authenticated %}
+        {% if user.is_superuser or user.is_staff %}
+        <li><a href="{% url 'cadastrar-cliente' %}">Cadastrar Cliente</a></li>
+        <li><a href="{% url 'cadastrar-fotografo' %}">Cadastrar Fotógrafo</a></li>
+        <li><a href="{% url 'cadastrar-sessao' %}">Cadastrar Sessão</a></li>
+        <li><a href="{% url 'listar-clientes' %}">Listar Clientes</a></li>
+        <li><a href="{% url 'listar-fotografos' %}">Listar Fotógrafos</a></li>
+        <li><a href="{% url 'listar-sessoes' %}">Listar Sessões</a></li>
+
+        {% elif user|has_group:"Cliente" %}
+        <li><a href="{% url 'cadastrar-cliente' %}">Meu Cadastro</a></li>
+        <li><a href="{% url 'cadastrar-sessao' %}">Nova Sessão</a></li>
+        <li><a href="{% url 'listar-sessoes' %}">Minhas Sessões</a></li>
+
+        {% elif user|has_group:"Fotógrafo" %}
+        <li><a href="{% url 'cadastrar-fotografo' %}">Meu Cadastro</a></li>
+        <li><a href="{% url 'cadastrar-sessao' %}">Nova Sessão</a></li>
+        <li><a href="{% url 'listar-sessoes' %}">Sessões</a></li>
+        {% endif %}
+
+        <li>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+        </li>
+
+        {% else %}
+        <li><a href="{% url 'login-cliente' %}">Login Cliente</a></li>
+        <li><a href="{% url 'login-fotografo' %}">Login Fotógrafo</a></li>
+        <li><a href="{% url 'login' %}">Login Admin</a></li>
+        {% endif %}
+    </ul>
+
+    <div id="conteudo">
+        {% block conteudo %}{% endblock %}
+    </div>
+
+    <div id="rodape">
+        Desenvolvido por Eduardo Hermsdorff e Henrique Capel
+    </div>
+
+</body>
+
+</html>

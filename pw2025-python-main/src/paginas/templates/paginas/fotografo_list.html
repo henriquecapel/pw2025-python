@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Fotógrafos</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+
+<body>
+    <h1>Fotógrafos</h1>
+
+    {% if objetos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Especialidade</th>
+                <th>Telefone</th>
+                <th style="width: 200px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in objetos %}
+            <tr>
+                <td>{{ f.nome }}</td>
+                <td>{{ f.especialidade|default:"—" }}</td>
+                <td>{{ f.telefone }}</td>
+                <td>
+                    <a href="{% url 'editar-fotografo' f.pk %}">Editar</a>
+                    |
+                    <a href="{% url 'excluir-fotografo' f.pk %}">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Nenhum fotógrafo encontrado.</p>
+    {% endif %}
+
+    <p><a href="{% url 'inicio' %}">← Voltar</a></p>
+</body>
+
+</html>
