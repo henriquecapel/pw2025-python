@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User, Group
+from braces.views import GroupRequiredMixin
 
 from .models import Cliente, Fotografo, Sessao
 from .forms import UsuarioCadastroForm
@@ -81,7 +83,7 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
     model = Cliente
     fields = ["nome", "telefone"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("clientes")
+    success_url = reverse_lazy("listar-clientes")
     extra_context = {"titulo": "Cadastrar cliente", 
                      'botao': 'Cadastrar'}
 
@@ -94,7 +96,7 @@ class FotografoCreate(LoginRequiredMixin, CreateView):
     model = Fotografo
     fields = ["nome", "especialidade", "telefone"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("fotografos")
+    success_url = reverse_lazy("listar-fotografos")
     extra_context = {"titulo": "Cadastrar fotógrafo",
                      'botao': 'Cadastrar'}
 
@@ -106,7 +108,7 @@ class SessaoCreate(UserOwnedQuerysetMixin, CreateView):
     model = Sessao
     fields = ["data", "horario", "duracao", "tipo", "valor", "finalizado", "cliente", "fotografo"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("sessoes")
+    success_url = reverse_lazy("listar-sessoes")
     extra_context = {"titulo": "Cadastrar sessão",
                      'botao': 'Cadastrar'}
 
@@ -117,7 +119,7 @@ class ClienteUpdate(LoginRequiredMixin, UpdateView):
     model = Cliente
     fields = ["nome", "telefone"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("clientes")
+    success_url = reverse_lazy("listar-clientes")
     extra_context = {"titulo": "Editar cliente",
                      'botao': 'Salvar'}
 
@@ -129,7 +131,7 @@ class FotografoUpdate(LoginRequiredMixin, UpdateView):
     model = Fotografo
     fields = ["nome", "especialidade", "telefone"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("fotografos")
+    success_url = reverse_lazy("listar-fotografos")
     extra_context = {"titulo": "Editar fotógrafo",
                      'botao': 'Salvar'}
 
@@ -140,7 +142,7 @@ class SessaoUpdate(UserOwnedQuerysetMixin, UpdateView):
     model = Sessao
     fields = ["data", "horario", "duracao", "tipo", "valor", "finalizado", "cliente", "fotografo"]
     template_name = "paginas/form.html"
-    success_url = reverse_lazy("sessoes")
+    success_url = reverse_lazy("excluir-sessoes")
     extra_context = {"titulo": "Editar sessão",
                      'botao': 'Salvar'}
 
@@ -148,8 +150,8 @@ class SessaoUpdate(UserOwnedQuerysetMixin, UpdateView):
 
 class ClienteDelete(LoginRequiredMixin, DeleteView):
     model = Cliente
-    template_name = "paginas/confirm_delete.html"
-    success_url = reverse_lazy("clientes")
+    template_name = "paginas/form.html"
+    success_url = reverse_lazy("listar-clientes")
     extra_context = {"titulo": "Excluir cliente",
                      'botao': 'Excluir'}
 
@@ -162,8 +164,8 @@ class ClienteDelete(LoginRequiredMixin, DeleteView):
 
 class FotografoDelete(LoginRequiredMixin, DeleteView):
     model = Fotografo
-    template_name = "paginas/confirm_delete.html"
-    success_url = reverse_lazy("fotografos")
+    template_name = "paginas/form.html"
+    success_url = reverse_lazy("listar-fotografos")
     extra_context = {"titulo": "Excluir fotógrafo",
                      'botao': 'Excluir'}
 
@@ -173,8 +175,8 @@ class FotografoDelete(LoginRequiredMixin, DeleteView):
 
 class SessaoDelete(UserOwnedQuerysetMixin, DeleteView):
     model = Sessao
-    template_name = "paginas/confirm_delete.html"
-    success_url = reverse_lazy("sessoes")
+    template_name = "paginas/form.html"
+    success_url = reverse_lazy("listar-sessoes")
     extra_context = {"titulo": "Excluir sessão",
                      'botao': 'Excluir'}
 

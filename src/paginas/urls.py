@@ -17,7 +17,7 @@ urlpatterns = [
 
 
     path("sair/", auth_views.LogoutView.as_view(), name="logout"),
-        
+
     path(
         "senha/",
         auth_views.PasswordChangeView.as_view(
@@ -52,7 +52,7 @@ urlpatterns = [
     path("excluir/sessao/<int:pk>/", SessaoDelete.as_view(), name="excluir-sessao"),
 
 
-    path("clientes/", ClienteList.as_view(), name="clientes"),
-    path("fotografos/", FotografoList.as_view(), name="fotografos"),
-    path("sessoes/", SessaoList.as_view(), name="sessoes"), 
+    path("listar/clientes/", ClienteList.as_view(), name="listar-clientes"),
+    path("listar/fotografos/", FotografoList.as_view(), name="listar-fotografos"),
+    path("listar/sessoes/", SessaoList.as_view(), name="listar-sessoes"), 
 ]
