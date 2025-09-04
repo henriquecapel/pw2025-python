@@ -1,0 +1,12 @@
+{% extends "paginas/index.html" %}
+{% block titulo %}Excluir{% endblock %}
+{% block conteudo %}
+
+<h2>Confirmar exclusão</h2>
+<p>Deseja excluir: "{{ object }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+    <a href="javascript:history.back()">Cancelar</a>
+</form>
+{% endblock %}
