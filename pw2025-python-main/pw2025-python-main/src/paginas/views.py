@@ -13,7 +13,7 @@ from .forms import UsuarioCadastroForm
 
 
 class Inicio(TemplateView):
-    template_name = "paginas/bootstrap.html"
+    template_name = "paginas/inicio.html"
 
 
 
@@ -21,7 +21,7 @@ class Inicio(TemplateView):
 #Páginas Sobreview, ClienteView, FotógrafoView e SessãoView
 
 class SobreView(TemplateView):
-    template_name = 'paginasweb/sobre.html'
+    template_name = 'paginas/sobre.html'
 
 class Clienteview(TemplateView):
     template_name = "paginas/cliente.html"

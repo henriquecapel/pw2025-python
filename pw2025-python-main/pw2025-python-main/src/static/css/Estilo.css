@@ -1,3 +1,24 @@
+/* Utilitários customizados para cor #6fcaff */
+.bg-6fcaff { background-color: #6fcaff !important; }
+.text-6fcaff { color: #6fcaff !important; }
+.border-6fcaff { border-color: #6fcaff !important; }
+.btn-6fcaff {
+    background-color: #6fcaff !important;
+    color: #02001f !important;
+    border: 1px solid #6fcaff !important;
+}
+.btn-6fcaff:hover, .btn-6fcaff:focus {
+    background-color: #4bbbe6 !important;
+    color: #fff !important;
+}
+.link-6fcaff { color: #6fcaff !important; }
+.link-6fcaff:hover { color: #02001f !important; }
+.alert-6fcaff {
+    background-color: #6fcaff !important;
+    color: #02001f !important;
+    border-color: #4bbbe6 !important;
+}
+.border-top-6fcaff { border-top: 2px solid #6fcaff !important; }
 body {
     background-color: white;
     font-family: Arial, sans-serif;

@@ -1,41 +1,42 @@
 {% extends "paginas/bootstrap.html" %}
-{% block titulo %}Sessões{% endblock %}
 {% block conteudo %}
-<h2>Sessões de Foto</h2>
-<p><a href="{% url 'cadastrar-sessao' %}">Nova sessão</a></p>
-<table border="1" cellpadding="6">
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Hora</th>
-            <th>Tipo</th>
-            <th>Cliente</th>
-            <th>Fotógrafo</th>
-            <th>Estúdio</th>
-            <th>Finalizado</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for obj in objetos %}
-        <tr>
-            <td>{{ obj.data }}</td>
-            <td>{{ obj.horario }}</td>
-            <td>{{ obj.tipo }}</td>
-            <td>{{ obj.cliente }}</td>
-            <td>{{ obj.fotografo }}</td>
-            <td>{{ obj.estudio }}</td>
-            <td>{{ obj.finalizado|yesno:"Sim,Não" }}</td>
-            <td>
-                <a href="{% url 'editar-sessao' obj.pk %}">Editar</a> |
-                <a href="{% url 'excluir-sessao' obj.pk %}">Excluir</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="8">Nenhum registro</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Sessões de Foto</h2>
+    <a href="{% url 'cadastrar-sessao' %}" class="btn btn-6fcaff">Nova sessão</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="bg-6fcaff text-dark">
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Fotógrafo</th>
+                <th>Finalizado</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in objetos %}
+            <tr>
+                <td>{{ obj.data }}</td>
+                <td>{{ obj.horario }}</td>
+                <td>{{ obj.tipo }}</td>
+                <td>{{ obj.cliente }}</td>
+                <td>{{ obj.fotografo }}</td>
+                <td>{{ obj.finalizado|yesno:"Sim,Não" }}</td>
+                <td class="text-center">
+                    <a href="{% url 'editar-sessao' obj.pk %}" class="btn btn-sm btn-outline-primary me-1">Editar</a>
+                    <a href="{% url 'excluir-sessao' obj.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center alert alert-6fcaff">Nenhum registro</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

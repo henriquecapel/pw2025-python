@@ -7,7 +7,7 @@ class Cliente(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome} ({self.telefone})"
 
 class Fotografo(models.Model):
     nome = models.CharField(max_length=100, null=True)
@@ -16,7 +16,7 @@ class Fotografo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome} - {self.especialidade}"
 
 class Sessao(models.Model):
     data = models.DateField()
@@ -30,7 +30,7 @@ class Sessao(models.Model):
     cadastrado_por = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.cadastrado_por.username} - {self.data} {self.horario}"
+        return f"Sessão: {self.tipo} | Cliente: {self.cliente.nome} | Fotógrafo: {self.fotografo.nome} | {self.data} {self.horario}"
 
  
 

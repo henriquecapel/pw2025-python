@@ -1,0 +1,26 @@
+{% extends "paginas/bootstrap.html" %}
+
+{% block conteudo %}
+<div class="row align-items-center mb-4">
+  <div class="col-md-8">
+    <h1 class="display-4 mb-3">Bem-vindo ao Hermsdorff & Capel Studio</h1>
+    <p class="lead">Gerencie clientes, fotógrafos e sessões de fotos de forma simples e eficiente.</p>
+    <ul class="list-group list-group-flush mb-3">
+      <li class="list-group-item">✔️ Cadastro e listagem de clientes e fotógrafos</li>
+      <li class="list-group-item">✔️ Agendamento e controle de sessões fotográficas</li>
+      <li class="list-group-item">✔️ Acesso seguro e personalizado para cada usuário</li>
+      <li class="list-group-item">✔️ Interface moderna e responsiva</li>
+    </ul>
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'listar-sessoes' %}" class="btn btn-6fcaff btn-lg me-2">Minhas Sessões</a>
+      <a href="{% url 'listar-clientes' %}" class="btn btn-outline-primary btn-lg">Meus Clientes</a>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-6fcaff btn-lg me-2">Entrar</a>
+      <a href="{% url 'cadastrar-usuario' %}" class="btn btn-outline-primary btn-lg">Registrar</a>
+    {% endif %}
+  </div>
+  <div class="col-md-4 d-none d-md-block">
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" class="img-fluid rounded shadow" alt="Estúdio de fotografia">
+  </div>
+</div>
+{% endblock %}

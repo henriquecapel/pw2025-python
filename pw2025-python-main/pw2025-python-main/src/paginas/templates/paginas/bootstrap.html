@@ -10,37 +10,86 @@
     <title>Página Inicial</title>
     {% endblock titulo %}
 
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+    {% comment %} Meus estilos {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
 </head>
 <body>
 
-    <ul id="menu">
-        <li><a href="{% url 'inicio' %}">Início</a></li>
-        <li><a href="{% url 'cadastrar-cliente' %}">Cadastrar Cliente</a></li>
-        <li><a href="{% url 'cadastrar-fotografo' %}">Cadastrar Fotógrafo</a></li>
-        <li><a href="{% url 'cadastrar-sessao' %}">Cadastrar sessao</a></li>
-        
-        {% if request.user.is_superuser %}
 
-        <li><a href="{% url 'listar-clientes' %}">Listar Clientes</a></li>
-        <li><a href="{% url 'listar-fotografos' %}">Listar Fotógrafos</a></li>
+                <nav class="navbar navbar-expand-lg bg-6fcaff navbar-6fcaff mb-4">
+                    <div class="container-fluid">
+                        <a class="navbar-brand text-6fcaff" href="{% url 'inicio' %}">Hermsdorff & Capel Studio</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'inicio' %}">Início</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
+                                </li>
+                                {% if request.user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Listas
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{% url 'listar-clientes' %}">Clientes</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'listar-fotografos' %}">Fotógrafos</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'listar-sessoes' %}">Sessões</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'cadastrar-cliente' %}">Cadastrar Cliente</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'cadastrar-fotografo' %}">Cadastrar Fotógrafo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'cadastrar-sessao' %}">Cadastrar Sessão</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            <ul class="navbar-nav mb-2 mb-lg-0">
+                                {% if request.user.is_authenticated %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'alterar-senha' %}">Alterar Senha</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'cadastrar-usuario' %}">Registrar</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-        {% endif %}
-        <li><a href="{% url 'listar-sessoes' %}">Listar Sessões</a></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <div class="container" style="min-height: 80vh;">
+            {% block conteudo %}
+            <h3>Página inicial</h3>
+            <p>Bem-vindos à página inicial de Hermsdorff E Capel Studio</p>
+            {% endblock %}
+        </div>
 
-    </ul>
-
-    <div id="conteudo">
-        {% block conteudo %}
-        <h3>Página inicial</h3>
-        <p>Bem-vindos à página inicial de Hermsdorff E Capel Studio</p>
-        {% endblock %}
-    </div>
-
-    <div id="rodape">
-        Desenvolvido por Eduardo Hermsdorff e Henrique Capel
-    </div>
+        <footer class="footer bg-6fcaff text-center text-white py-2 fixed-bottom border-top-6fcaff">
+            <div class="container">
+                Desenvolvido por Eduardo Hermsdorff e Henrique Capel
+            </div>
+        </footer>
 
 </body>
 </html>

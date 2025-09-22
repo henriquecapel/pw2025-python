@@ -1,13 +1,26 @@
 {% extends "paginas/bootstrap.html" %}
 
-{% load static %}
-
-{%  block conteudo   %}
-
-<h3>Sobre</h3>
-<p>
-    Fotografias Eduardo Hermsdorff e Henrique Capel
-
-</p>
-
+{% block conteudo %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1 class="mb-4">Sobre o Hermsdorff & Capel Studio</h1>
+    <p class="lead">O Hermsdorff & Capel Studio é uma plataforma desenvolvida para facilitar o gerenciamento de clientes, fotógrafos e sessões fotográficas, tornando o dia a dia do seu estúdio mais prático, moderno e eficiente.</p>
+    <hr>
+    <h3>Funcionalidades</h3>
+    <ul>
+      <li>Cadastro e listagem de clientes e fotógrafos</li>
+      <li>Agendamento e controle de sessões de fotos</li>
+      <li>Gestão de usuários com diferentes permissões</li>
+      <li>Interface responsiva e intuitiva</li>
+      <li>Segurança e privacidade dos dados</li>
+    </ul>
+    <hr>
+    <h3>Equipe</h3>
+    <ul>
+      <li><strong>Eduardo Hermsdorff</strong> — Desenvolvimento e Design</li>
+      <li><strong>Henrique Capel</strong> — Desenvolvimento e Suporte</li>
+    </ul>
+    <p class="mt-4">Este projeto foi criado com dedicação para ajudar estúdios de fotografia a crescerem e se organizarem melhor. Se tiver dúvidas ou sugestões, entre em contato conosco!</p>
+  </div>
+</div>
 {% endblock %}
