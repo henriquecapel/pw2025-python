@@ -1,0 +1,159 @@
+{% extends "paginas/bootstrap.html" %}
+
+{% block conteudo %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Portfólio dos Fotógrafos</h2>
+    <a href="{% url 'cadastrar-portfolio' %}" class="btn btn-6fcaff">Adicionar Foto</a>
+</div>
+
+<!-- Filtro por Fotógrafo (Opcional) -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <select class="form-select" id="filtro-fotografo">
+            <option value="">Todos os fotógrafos</option>
+            {% for fotografo in fotografos %}
+            <option value="{{ fotografo.id }}">{{ fotografo.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="row" id="portfolio-grid">
+    {% for obj in object_list %}
+    <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-fotografo="{{ obj.fotografo.id }}">
+        <div class="card h-100 shadow-sm portfolio-card">
+            <!-- Imagem do Portfólio -->
+            <div class="position-relative overflow-hidden" style="height: 250px;">
+                <img src="{{ obj.foto_url }}" 
+                     alt="{{ obj.descricao|default:'Foto do portfólio' }}" 
+                     class="card-img-top h-100 w-100" 
+                     style="object-fit: cover; transition: transform 0.3s ease;"
+                     onmouseover="this.style.transform='scale(1.05)'"
+                     onmouseout="this.style.transform='scale(1)'">
+
+                <!-- Overlay com informações do fotógrafo -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end portfolio-overlay"
+                     style="background: linear-gradient(transparent, rgba(0,0,0,0.7)); opacity: 0; transition: opacity 0.3s ease;">
+                    <div class="text-white p-3 w-100">
+                        <h6 class="mb-1">{{ obj.fotografo.nome }}</h6>
+                        <small class="text-light">{{ obj.fotografo.especialidade }}</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo do Card -->
+            <div class="card-body d-flex flex-column">
+                <!-- Informações do Fotógrafo -->
+                <div class="d-flex align-items-center mb-3">
+                    {% if obj.fotografo.foto_perfil %}
+                        <img src="{{ obj.fotografo.foto_perfil }}" 
+                             alt="{{ obj.fotografo.nome }}" 
+                             class="rounded-circle me-3" 
+                             style="width: 40px; height: 40px; object-fit: cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-6fcaff d-flex align-items-center justify-content-center me-3" 
+                             style="width: 40px; height: 40px;">
+                            <i class="fas fa-camera text-white"></i>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h6 class="mb-0">{{ obj.fotografo.nome }}</h6>
+                        <small class="text-muted">{{ obj.fotografo.especialidade }}</small>
+                    </div>
+                </div>
+
+                <!-- Descrição da Foto -->
+                {% if obj.descricao %}
+                <p class="card-text text-muted mb-3">
+                    <i class="fas fa-quote-left me-1"></i>
+                    {{ obj.descricao }}
+                </p>
+                {% endif %}
+
+                <!-- Ações -->
+                <div class="d-flex gap-2 mt-auto">
+                    <a href="{{ obj.foto_url }}" 
+                       target="_blank" 
+                       class="btn btn-outline-primary btn-sm flex-fill">
+                        <i class="fas fa-eye me-1"></i>Ver Original
+                    </a>
+                    <a href="{% url 'editar-portfolio' obj.pk %}" 
+                       class="btn btn-outline-secondary btn-sm">
+                        Editar
+                    </a>
+                    <a href="{% url 'excluir-portfolio' obj.pk %}" 
+                       class="btn btn-outline-danger btn-sm">
+                        Excluir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-6fcaff text-center">
+            <i class="fas fa-images fa-3x mb-3 d-block"></i>
+            <h4>Nenhuma foto no portfólio</h4>
+            <p class="mb-0">Comece adicionando fotos dos trabalhos dos fotógrafos!</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- CSS Personalizado -->
+<style>
+.portfolio-card:hover .portfolio-overlay {
+    opacity: 1 !important;
+}
+
+.portfolio-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.bg-6fcaff {
+    background-color: #6fcaff;
+}
+
+.btn-6fcaff {
+    background-color: #6fcaff;
+    border-color: #6fcaff;
+    color: white;
+}
+
+.btn-6fcaff:hover {
+    background-color: #5bb8ed;
+    border-color: #5bb8ed;
+}
+
+.alert-6fcaff {
+    background-color: rgba(111, 202, 255, 0.1);
+    border-color: #6fcaff;
+    color: #0c5460;
+}
+</style>
+
+<!-- JavaScript para Filtro -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filtro = document.getElementById('filtro-fotografo');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filtro.addEventListener('change', function() {
+        const fotografoId = this.value;
+
+        portfolioItems.forEach(item => {
+            if (fotografoId === '' || item.dataset.fotografo === fotografoId) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
